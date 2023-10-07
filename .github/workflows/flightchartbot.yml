@@ -1,0 +1,45 @@
+name: Flight Chart Bot
+
+on:
+    push:
+        branches: [main]
+    schedule:
+        - cron: "0 */1 * * *" # 정각마다
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                python-version: [3.10.13] # 파이썬 3.10.13 버전으로
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set up python ${{ matrix.python-version }}
+              uses: actions/setup-python@v1
+              with:
+                  python-version: ${{ matrix.python-version }}
+
+            - name: access to secrets
+              run: |
+                  echo $SPREADSHEET_CREDENTIAL_64 | base64 --decode >> prepare-sapporo-fcfcb0410910.json
+              env:
+                  SPREADSHEET_CREDENTIAL_64: ${{secrets.SPREADSHEET_CREDENTIAL_64}}
+
+            - name: Install python package # 파이썬 관련 패키지를 설치
+              run: |
+                  pip install selenium gspread oauth2client pytz
+
+            - name: Install ubuntu package # 우분투 관련 패키지도 설치
+              run: |
+                  sudo apt-get install fonts-unfonts-core
+                  sudo apt-get install fonts-unfonts-extra
+                  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add
+                  sudo apt-get install google-chrome-stable
+                  wget https://chromedriver.storage.googleapis.com/2.40/chromedriver_linux64.zip
+                  unzip ./chromedriver_linux64.zip
+                  ls
+
+            - name: Run! # main.py 실행
+              run: |
+                  python ./src/main.py
