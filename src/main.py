@@ -1,5 +1,5 @@
 from SpreadSheet import GetSpreadSheet
-from SlackManager import PostMessage
+from SlackManager import PostMessage, PostCurrentPrice
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -23,6 +23,8 @@ driver.implicitly_wait(3)
 try:
     worksheet = GetSpreadSheet()
     worksheet_length = len(worksheet.get_values())
+    prev_lowest_price = worksheet.acell(
+        "B" + str(worksheet_length)).value.removeprefix("₩").replace(",", "")
 
     driver.get(URL)
 
@@ -44,7 +46,9 @@ try:
             lowest_price = elem_to_int
 
     if (lowest_price < 600000):
-        PostMessage("🚨테스트🚨 항공권 가격이 " + str(lowest_price) + "원 입니다!!! 얼른 구입하세요!!!!")
+        PostMessage(lowest_price)
+
+    PostCurrentPrice(int(lowest_price), int(prev_lowest_price), Format_Date)
 
     lowest_price = f"₩{lowest_price:,}"
 
