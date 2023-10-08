@@ -33,7 +33,7 @@ jobs:
 
             - name: Install python package # 파이썬 관련 패키지를 설치
               run: |
-                  pip install selenium gspread oauth2client pytz slack_sdk python-dotenv
+                  cat requirements.txt | xargs -n 1 pip install
 
             - name: Install ubuntu package # 우분투 관련 패키지도 설치
               run: |
