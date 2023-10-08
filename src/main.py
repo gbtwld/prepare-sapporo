@@ -43,8 +43,9 @@ try:
         if (lowest_price == 0 or lowest_price > elem_to_int):
             lowest_price = elem_to_int
 
+    lowest_price = 200000
     if (lowest_price < 600000):
-        PostMessage("🚨공습경보🚨 항공권 가격이 " + lowest_price + " 입니다!!! 얼른 구입하세요!!!!")
+        PostMessage("🚨테스트🚨 항공권 가격이 " + lowest_price + " 입니다!!! 얼른 구입하세요!!!!")
 
     lowest_price = f"₩{lowest_price:,}"
 
