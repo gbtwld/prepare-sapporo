@@ -17,8 +17,8 @@ def PostMessage(price):
 def PostCurrentPrice(curPrice, prevPrice, date):
     curPriceFormat = f"{curPrice:,}"
     rate = round((curPrice - prevPrice) / prevPrice * 100, 2)
-    rate_string = str(rate) + "%" if rate < 0 else "+" + \
-        str(rate) + "%" if rate > 0 else "변동없음"
+    rate_string = str(rate) if rate < 0 else "+" + str(rate)
     message = date + " 현재 항공권 가격은 " + \
-        curPriceFormat + "원 입니다. (" + rate_string + ")"
-    client.chat_postMessage(channel='#가격변동', text=message)
+        curPriceFormat + "원 입니다. (" + rate_string + "%)"
+    if (rate != 0):
+        client.chat_postMessage(channel='#가격변동', text=message)
