@@ -14,6 +14,8 @@ worksheet_length = len(worksheet.get_values())
 prev_lowest_price = worksheet.acell(
     "B" + str(worksheet_length)).value.removeprefix("₩").replace(",", "")
 
+print(lowest_price)
+
 if (lowest_price != 0):
     if (lowest_price < 600000):
         PostMessage(lowest_price)
