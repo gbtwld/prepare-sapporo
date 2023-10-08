@@ -45,7 +45,7 @@ try:
 
     lowest_price = 200000
     if (lowest_price < 600000):
-        PostMessage("🚨테스트🚨 항공권 가격이 " + (str)lowest_price + " 입니다!!! 얼른 구입하세요!!!!")
+        PostMessage("🚨테스트🚨 항공권 가격이 " + str(lowest_price) + " 입니다!!! 얼른 구입하세요!!!!")
 
     lowest_price = f"₩{lowest_price:,}"
 
