@@ -20,6 +20,11 @@ jobs:
               with:
                   python-version: ${{ matrix.python-version }}
 
+            - name: Env vars for python
+              run: echo SLACK_TOKEN=$SLACK_TOKEN >> .env
+              env:
+                  SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+
             - name: access to secrets
               run: |
                   echo $SPREADSHEET_CREDENTIAL_64 | base64 --decode >> prepare-sapporo-fcfcb0410910.json
@@ -28,7 +33,7 @@ jobs:
 
             - name: Install python package # 파이썬 관련 패키지를 설치
               run: |
-                  pip install selenium gspread oauth2client pytz
+                  pip install selenium gspread oauth2client pytz slack_sdk python-dotenv
 
             - name: Install ubuntu package # 우분투 관련 패키지도 설치
               run: |

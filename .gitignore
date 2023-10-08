@@ -162,3 +162,5 @@ cython_debug/
 chromedriver
 
 prepare-sapporo-fcfcb0410910.json
+
+.env

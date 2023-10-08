@@ -1,4 +1,5 @@
 from SpreadSheet import GetSpreadSheet
+from SlackManager import PostMessage
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -41,6 +42,9 @@ try:
             'innerText').replace(",", ""))
         if (lowest_price == 0 or lowest_price > elem_to_int):
             lowest_price = elem_to_int
+
+    if (lowest_price < 600000):
+        PostMessage("🚨공습경보🚨 항공권 가격이 " + lowest_price + " 입니다!!! 얼른 구입하세요!!!!")
 
     lowest_price = f"₩{lowest_price:,}"
 
