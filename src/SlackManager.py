@@ -9,12 +9,12 @@ SLACK_TOKEN = os.getenv('SLACK_TOKEN')
 client = WebClient(token=SLACK_TOKEN)
 
 
-def PostMessage(price):
+def PostMessage(price: int):
     message = "🚨공습경보🚨 항공권 가격이 " + str(price) + "원 입니다!!! 얼른 구입하세요!!!!"
     client.chat_postMessage(channel='#공습경보', text=message)
 
 
-def PostCurrentPrice(curPrice, prevPrice, date):
+def PostCurrentPrice(curPrice: int, prevPrice: int, date: str):
     curPriceFormat = f"{curPrice:,}"
     rate = round((curPrice - prevPrice) / prevPrice * 100, 2)
     rate_string = str(rate) if rate < 0 else "+" + str(rate)
