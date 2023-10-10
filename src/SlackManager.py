@@ -10,7 +10,7 @@ client = WebClient(token=SLACK_TOKEN)
 
 
 def PostMessage(price):
-    message = "🚨테스트🚨 항공권 가격이 " + str(price) + "원 입니다!!! 얼른 구입하세요!!!!"
+    message = "🚨공습경보🚨 항공권 가격이 " + str(price) + "원 입니다!!! 얼른 구입하세요!!!!"
     client.chat_postMessage(channel='#공습경보', text=message)
 
 
