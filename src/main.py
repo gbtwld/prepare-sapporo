@@ -14,7 +14,7 @@ worksheet_length = len(worksheet.get_values())
 prev_lowest_price = worksheet.acell(
     "B" + str(worksheet_length)).value.removeprefix("₩").replace(",", "")
 
-if (lowest_price != 0):
+if (type(lowest_price) is int and lowest_price > 0):
     if (lowest_price < 600000):
         PostMessage(lowest_price)
     PostCurrentPrice(int(lowest_price), int(prev_lowest_price), Format_Date)

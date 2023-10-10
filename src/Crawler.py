@@ -41,4 +41,4 @@ def getLowestPrice():
         print(e)
 
     finally:
-        print("Crawling Finished")
+        print("Crawling Result: " + str(lowest_price))
