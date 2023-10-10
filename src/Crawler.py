@@ -5,16 +5,15 @@ from selenium.webdriver.support import expected_conditions as EC
 
 URL = "https://flight.naver.com/flights/international/ICN-SPK-20240118/SPK-ICN-20240122?adult=5&isDirect=true&fareType=Y"
 
+options = webdriver.ChromeOptions()
+options.add_argument("--headless=chrome")
+options.add_argument('incognito')
+
+driver = webdriver.Chrome(options=options)
+
 
 def getLowestPrice():
     lowest_price = 0
-
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless=chrome")
-    options.add_argument('incognito')
-
-    driver = webdriver.Chrome(options=options)
-
     try:
         driver.get(URL)
 
