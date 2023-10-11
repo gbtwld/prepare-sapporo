@@ -17,6 +17,7 @@ def getLowestPrice():
     lowest_price = 0
     try:
         driver.get(URL)
+        log("[크롤링 시작]")
         driver.implicitly_wait(3)
 
         WebDriverWait(driver, 30
@@ -26,6 +27,7 @@ def getLowestPrice():
 
         lowest_price = int(price_element.get_attribute(
             'innerText').replace(",", ""))
+        log("[크롤링 종료]")
 
         return lowest_price
 
