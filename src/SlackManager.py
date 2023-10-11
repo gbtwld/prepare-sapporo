@@ -1,6 +1,7 @@
 import os
 from slack_sdk import WebClient
 from dotenv import load_dotenv
+from Logging import log
 
 load_dotenv(verbose=True)
 
@@ -23,4 +24,4 @@ def PostCurrentPrice(curPrice: int, prevPrice: int, date: str):
     if (rate != 0):
         client.chat_postMessage(channel='#가격변동', text=message)
     else:
-        print("가격 변동 없음")
+        log("가격 변동 없음")

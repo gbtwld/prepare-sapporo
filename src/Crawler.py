@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from Logging import log
 
 URL = "https://flight.naver.com/flights/international/ICN-SPK-20240118/SPK-ICN-20240122?adult=5&isDirect=true&fareType=Y"
 
@@ -32,4 +33,4 @@ def getLowestPrice():
         print(e)
 
     finally:
-        print("[크롤링 결과] " + str(lowest_price))
+        log("[크롤링 결과] " + str(lowest_price))

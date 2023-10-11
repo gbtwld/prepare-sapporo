@@ -1,12 +1,9 @@
 from SpreadSheet import GetSpreadSheet, UpdateSpreadSheet
 from SlackManager import PostMessage, PostCurrentPrice
 from Crawler import getLowestPrice
-import datetime as dt
-from pytz import timezone
+from Logging import getDate, log
 
-Date = dt.datetime.now(timezone('Asia/Seoul'))
-Format_Date = Date.strftime('%Y/%m/%d %H시 %M분')
-
+Date = getDate()
 lowest_price = getLowestPrice()
 
 worksheet = GetSpreadSheet()
@@ -17,7 +14,7 @@ prev_lowest_price = int(worksheet.acell(
 if (type(lowest_price) is int and lowest_price > 0):
     if (lowest_price < 600000):
         PostMessage(lowest_price)
-    PostCurrentPrice(lowest_price, prev_lowest_price, Format_Date)
-    UpdateSpreadSheet(worksheet_length, Format_Date, lowest_price)
+    PostCurrentPrice(lowest_price, prev_lowest_price, Date)
+    UpdateSpreadSheet(worksheet_length, Date, lowest_price)
 else:
-    print("Scrap Failed")
+    log("Scrap Failed")
