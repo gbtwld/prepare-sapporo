@@ -19,6 +19,6 @@ def GetSpreadSheet():
 def UpdateSpreadSheet(sheet_length: int, date: str, price: int):
     worksheet.update_acell('A'+str(sheet_length+1), date)
     worksheet.update_acell('B'+str(sheet_length+1), f"₩{price:,}")
-    print("스프레드 시트 업데이트 완료")
+    print("[스프레드 시트 업데이트 완료]")
     print('A'+str(sheet_length+1), date)
     print('B'+str(sheet_length+1), f"₩{price:,}")

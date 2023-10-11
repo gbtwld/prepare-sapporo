@@ -23,4 +23,4 @@ def PostCurrentPrice(curPrice: int, prevPrice: int, date: str):
     if (rate != 0):
         client.chat_postMessage(channel='#가격변동', text=message)
     else:
-        print("가격 변동이 없습니다.")
+        print("가격 변동 없음")

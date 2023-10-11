@@ -32,4 +32,4 @@ def getLowestPrice():
         print(e)
 
     finally:
-        print("Crawling Result: " + str(lowest_price))
+        print("[크롤링 결과] " + str(lowest_price))
