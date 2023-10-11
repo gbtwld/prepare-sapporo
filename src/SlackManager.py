@@ -13,6 +13,7 @@ client = WebClient(token=SLACK_TOKEN)
 def PostMessage(price: int):
     message = "🚨공습경보🚨 항공권 가격이 " + str(price) + "원 입니다!!! 얼른 구입하세요!!!!"
     client.chat_postMessage(channel='#공습경보', text=message)
+    log("[공습경보 발송]")
 
 
 def PostCurrentPrice(curPrice: int, prevPrice: int, date: str):
@@ -22,5 +23,6 @@ def PostCurrentPrice(curPrice: int, prevPrice: int, date: str):
     message = "현재 항공권 가격은 " + curPriceFormat + "원 입니다. (" + rate_string + "%)"
     if (rate != 0):
         client.chat_postMessage(channel='#가격변동', text=message)
+        log("[가격변동 메시지 발송]" + message)
     else:
         log("가격 변동 없음")
