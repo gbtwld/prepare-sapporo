@@ -10,29 +10,16 @@ SHEET_URL = 'https://docs.google.com/spreadsheets/d/14ZqCqKH22KhdvNPEa5efYpn-fms
 
 gc = gspread.authorize(CREDENTIALS)
 doc = gc.open_by_url(SHEET_URL)
-
-direct_worksheet = doc.worksheet('직항')
-layover_worksheet = doc.worksheet('경유')
-
-direct_worksheet_length = len(direct_worksheet.get_values())
-layover_worksheet_length = len(layover_worksheet.get_values())
+worksheet = doc.worksheet('직항')
 
 
-def getPrevPrices():
-    prev_prices = {
-        "direct": int(direct_worksheet.acell(
-            "B" + str(direct_worksheet_length)).value.removeprefix("₩").replace(",", "")),
-        "layover": int(layover_worksheet.acell(
-            "B" + str(layover_worksheet_length)).value.removeprefix("₩").replace(",", ""))
-    }
-    return prev_prices
+def GetSpreadSheet():
+    return worksheet
 
 
-def UpdateSpreadSheet(date: str, prices):
-    direct_worksheet.update_acell('A'+str(direct_worksheet_length+1), date)
-    direct_worksheet.update_acell(
-        'B'+str(direct_worksheet_length+1), f"₩{prices['direct']:,}")
-    layover_worksheet.update_acell('A'+str(layover_worksheet_length+1), date)
-    layover_worksheet.update_acell(
-        'B'+str(layover_worksheet_length+1), f"₩{prices['layover']:,}")
+def UpdateSpreadSheet(sheet_length: int, date: str, price: int):
+    worksheet.update_acell('A'+str(sheet_length+1), date)
+    worksheet.update_acell('B'+str(sheet_length+1), f"₩{price:,}")
     log("[스프레드 시트 업데이트 완료]")
+    log('A' + str(sheet_length+1) + " " + date)
+    log('B' + str(sheet_length+1) + " " + f"₩{price:,}")
