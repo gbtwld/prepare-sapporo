@@ -1,20 +1,25 @@
-from SpreadSheet import GetSpreadSheet, UpdateSpreadSheet
-from SlackManager import PostMessage, PostCurrentPrice
+from SpreadSheet import getPrevPrices, UpdateSpreadSheet
+from SlackManager import handleDiscountMessage, handlePriceChangeMessage
 from Crawler import getLowestPrice
 from Logging import getDate, log
 
+prices = {
+    "direct": 0,
+    "layover": 0
+}
+prev_prices = getPrevPrices()
 Date = getDate()
-lowest_price = getLowestPrice()
 
-worksheet = GetSpreadSheet()
-worksheet_length = len(worksheet.get_values())
-prev_lowest_price = int(worksheet.acell(
-    "B" + str(worksheet_length)).value.removeprefix("₩").replace(",", ""))
+prices["direct"] = getLowestPrice("direct")
+prices["layover"] = getLowestPrice("layover")
 
-if (type(lowest_price) is int and lowest_price > 0):
-    if (lowest_price < 600000):
-        PostMessage(lowest_price)
-    PostCurrentPrice(lowest_price, prev_lowest_price, Date)
-    UpdateSpreadSheet(worksheet_length, Date, lowest_price)
+if (type(prices["direct"]) is int and prices["direct"] > 0 and type(prices["layover"]) is int and prices["layover"] > 0):
+    if (prices["direct"] < 600000):
+        handleDiscountMessage(prices["direct"])
+    handlePriceChangeMessage(
+        "direct", prices["direct"], prev_prices["direct"], Date)
+    handlePriceChangeMessage(
+        "layover", prices["layover"], prev_prices["layover"], Date)
+    UpdateSpreadSheet(Date, prices)
 else:
     log("Scrap Failed")
