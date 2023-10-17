@@ -10,7 +10,7 @@ SHEET_URL = 'https://docs.google.com/spreadsheets/d/14ZqCqKH22KhdvNPEa5efYpn-fms
 
 gc = gspread.authorize(CREDENTIALS)
 doc = gc.open_by_url(SHEET_URL)
-worksheet = doc.worksheet('일별가격')
+worksheet = doc.worksheet('직항')
 
 
 def GetSpreadSheet():
