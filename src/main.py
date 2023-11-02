@@ -14,7 +14,7 @@ prev_lowest_price = int(worksheet.acell(
 if (type(lowest_price) is int and lowest_price > 0):
     if (lowest_price < 600000):
         PostMessage(lowest_price)
-    PostCurrentPrice(lowest_price, prev_lowest_price, Date)
+    # PostCurrentPrice(lowest_price, prev_lowest_price, Date)
     UpdateSpreadSheet(worksheet_length, Date, lowest_price)
 else:
     log("Scrap Failed")
